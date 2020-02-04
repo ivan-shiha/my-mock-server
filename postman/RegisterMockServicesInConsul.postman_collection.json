@@ -1,0 +1,95 @@
+{
+    "info": {
+        "_postman_id": "d9b4f51a-083a-49ba-8f3c-0401436874b9",
+        "name": "Example Consul",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "item": [
+        {
+            "name": "MockServer",
+            "request": {
+                "method": "PUT",
+                "header": [
+                    {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                    }
+                ],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\r\n  \"ID\": \"MockServer\",\r\n  \"Name\": \"MockServer\",\r\n  \"Tags\": [\"urlprefix-/MockServer\"],\r\n  \"Address\": \"{{microservice-hostname}}\",\r\n  \"Port\": 3535,\r\n  \"EnableTagOverride\": false,\r\n  \"Check\": {\r\n    \"DeregisterCriticalServiceAfter\": \"10m\",\r\n    \"HTTP\": \"http://www.google.com\",\r\n    \"Interval\": \"1m\"\r\n  }\r\n}"
+                },
+                "url": {
+                    "raw": "{{consul-hostname}}:8500/v1/agent/service/register",
+                    "host": [
+                        "{{consul-hostname}}"
+                    ],
+                    "port": "8500",
+                    "path": [
+                        "v1",
+                        "agent",
+                        "service",
+                        "register"
+                    ]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "KV Route Mappings",
+            "description": null,
+            "item": [
+                {
+                    "name": "KV exampleRequest",
+                    "request": {
+                        "method": "PUT",
+                        "header": [],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "api/v1/example"
+                        },
+                        "url": {
+                            "raw": "http://{{consul-hostname}}:8500/v1/kv/RouteMappings/api/v1/example",
+                            "protocol": "http",
+                            "host": [
+                                "{{consul-hostname}}"
+                            ],
+                            "port": "8500",
+                            "path": [
+                                "v1",
+                                "kv",
+                                "RouteMappings",
+                                "api",
+                                "v1",
+                                "example"
+                            ]
+                        }
+                    },
+                    "response": []
+                }
+            ]
+        }
+    ],
+    "event": [
+        {
+            "listen": "prerequest",
+            "script": {
+                "id": "b26befa2-e3e7-46fb-832c-408095f1e986",
+                "type": "text/javascript",
+                "exec": [
+                    ""
+                ]
+            }
+        },
+        {
+            "listen": "test",
+            "script": {
+                "id": "24edd858-1835-4fe9-a2ab-b909e064f352",
+                "type": "text/javascript",
+                "exec": [
+                    ""
+                ]
+            }
+        }
+    ]
+}
